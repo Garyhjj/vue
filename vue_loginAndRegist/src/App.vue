@@ -10,12 +10,15 @@
       <router-view></router-view>
 
     </div>
+    <sort></sort>
 
   </div>
 </template>
 
 <script>
 //引入组件
+import sort from './components/sort.vue'
+
 export default {
   name: 'app',
   data () {
@@ -24,9 +27,7 @@ export default {
 
     }
   },
-  components:{
-
-  }
+  components:{sort}
 }
 </script>
 

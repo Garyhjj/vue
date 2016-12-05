@@ -108,7 +108,7 @@ export default {
     //todo： 检查用户名是否重复
     check2(){
       if(this.name) {
-        this.confirN = true;
+        this.confirmN = true;
         this.message2 = '此用户名可用';
         for(var i =0;i<json.length;i++) {
           if(this.name === json[i].name) {

@@ -40,10 +40,9 @@ function loadXMLDoc()
 			json = eval('(' + xmlhttp.responseText + ')');
 		}
 	}
-	xmlhttp.open("GET","user.json",true);
+	xmlhttp.open("GET","user.json",false);
 	xmlhttp.send();
 };
-window.onload = loadXMLDoc();
 
 export default {
 
@@ -59,6 +58,7 @@ export default {
   methods: {
     //确认账号密码是否正确
     confirm2(){
+      loadXMLDoc()
       this.success = false;
       for(var i =0;i<json.length;i++) {
         if(this.name === json[i].name) {

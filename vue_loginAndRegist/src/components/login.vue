@@ -40,7 +40,7 @@ function loadXMLDoc()
 			json = eval('(' + xmlhttp.responseText + ')');
 		}
 	}
-	xmlhttp.open("GET","user.json",false);
+	xmlhttp.open("GET","user.json",true);
 	xmlhttp.send();
 };
 
@@ -58,25 +58,35 @@ export default {
   methods: {
     //确认账号密码是否正确
     confirm2(){
-      loadXMLDoc()
-      this.success = false;
-      for(var i =0;i<json.length;i++) {
-        if(this.name === json[i].name) {
-          if(this.password === json[i].password) {
-            this.success = true;
+      json = '';
+      loadXMLDoc();
+      var self1 = this;
+      function check(self) {
+        self.success = false;
+        for(var i =0;i<json.length;i++) {
+          if(self.name === json[i].name) {
+            if(self.password === json[i].password) {
+              self.success = true;
+            }
           }
         }
-      }
-      //由于不会写入json，使用localStorage验证新注册的账号密码
-      if(this.name === localStorage.name && this.password === localStorage.password){
-        this.success = true;
-      }
-      if(this.success) {
-        this.message = '登录成功，正在跳转'
-      }else {
-        this.message = '登录失败!!账号或密码错误'
-      }
-
+        //由于不会写入json，使用localStorage验证新注册的账号密码
+        if(self.name === localStorage.name && self.password === localStorage.password){
+          self.success = true;
+        }
+        if(self.success) {
+          this.message = '登录成功，正在跳转'
+        }else {
+          self.message = '登录失败!!账号或密码错误'
+        }
+      };
+      setTimeout(function() {
+        if(json) {
+          check(self1);
+        }else {
+          self1.message = '请求超时，请重试';
+        }
+      },200)
     }
   }
 }
